@@ -27,6 +27,7 @@ public class Magasin {
             {
                 p.Remplir();
             EnsembleProduits[i]= p;
+                Capacite++;
                 i++;}
             else
                 test=true;
@@ -47,7 +48,7 @@ public class Magasin {
     }
     public int getListArticle() {
             if(EnsembleProduits != null) {
-               return EnsembleProduits.length;
+               return Capacite;
             }
             return 0;
     }
