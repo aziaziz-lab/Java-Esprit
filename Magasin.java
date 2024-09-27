@@ -45,10 +45,11 @@ public class Magasin {
       }
         }
     }
-    public void getListArticle() {
-        for (Produits ensembleProduit : EnsembleProduits) {
-            ensembleProduit.afficher();
-        }
+    public int getListArticle() {
+            if(EnsembleProduits != null) {
+               return EnsembleProduits.length;
+            }
+            return 0;
     }
 
 }

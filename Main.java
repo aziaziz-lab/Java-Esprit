@@ -41,5 +41,6 @@ public class Main {
         MG.AjouterProduits();
        // MG.getListArticle();
         MG.AfficherProduits();
+        MG.getListArticle();
     }
 }
