@@ -1,5 +1,7 @@
+package tn.tuniprob.gestionmagasin;
+
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.Month;
 import java.util.Scanner;  // Import the Scanner class
 public class Produits {
     int ID;
@@ -15,6 +17,33 @@ public class Produits {
         this.Prix = 0;
         this.DateExpiration=null;
     }
+
+    public String getLibl() {
+        return Libl;
+    }
+     public float getPrix() {
+        return Prix;
+}
+    public void Remplir()
+    {
+
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Donnez ID");
+        ID=myObj.nextInt();
+        myObj.nextLine();
+        System.out.println("Donnez Libelle");
+        Libl=myObj.nextLine();
+        System.out.println("Donnez Marque");
+        Marque=myObj.nextLine();
+        do {
+            System.out.println("Donnez Prix");
+            this.Prix = myObj.nextInt();
+        }
+        while(Prix<0);
+        myObj.nextLine();
+        System.out.println("Donnez La date");
+        DateExpiration=  DateExpiration.of(1986, Month.APRIL, 8);
+    }
     public Produits(int ID, String Libl, String Marque, float Prix, LocalDate DateExpiration) {
         this.ID = ID;
         this.Libl = Libl;
@@ -23,7 +52,7 @@ public class Produits {
         this.DateExpiration = DateExpiration;
     }
 
-    
+
     public void afficher() {
         System.out.println("l id du produit est" + this.ID);
         System.out.println("Libelle du produit est" + this.Libl);

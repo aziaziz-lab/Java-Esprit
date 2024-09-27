@@ -1,10 +1,12 @@
+import tn.tuniprob.gestionmagasin.Produits;
+
 import java.time.LocalDate;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Produits[] myArray;
+       /* Produits[] myArray;
         LocalDate date = LocalDate.parse("2018-05-05");
         myArray = new Produits[4];
       Produits p1 = new Produits();
@@ -34,6 +36,10 @@ public class Main {
         for(Produits p : myArray) {
             p.verifier();
             System.out.println( p.toString());
-        }
+        }*/
+        Magasin MG = new Magasin(1,"Bardo",15);
+        MG.AjouterProduits();
+       // MG.getListArticle();
+        MG.AfficherProduits();
     }
 }
