@@ -2,6 +2,7 @@ package tn.tuniprob.gestionmagasin;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Objects;
 import java.util.Scanner;  // Import the Scanner class
 public class Produits {
     int ID;
@@ -10,6 +11,8 @@ public class Produits {
     float Prix;
     LocalDate DateExpiration;
 
+
+
     public Produits() {
         this.ID = 0;
         this.Libl = null;
@@ -17,7 +20,21 @@ public class Produits {
         this.Prix = 0;
         this.DateExpiration=null;
     }
-
+    public boolean Comparer(Produits p1)
+    {
+        if(Objects.equals(p1.getLibl(),Libl) &&p1.getPrix()==Prix&& p1.getID()==ID)
+            return true;
+        return false;
+    }
+    public static boolean Comparer(Produits p1,Produits p2)
+    {
+        if(Objects.equals(p1.getLibl(), p2.getLibl()) &&p1.getPrix()==p2.getPrix()&& p1.getID()==p2.getID())
+            return true;
+        return false;
+    }
+    public int getID() {
+        return ID;
+    }
     public String getLibl() {
         return Libl;
     }
@@ -71,6 +88,19 @@ public class Produits {
 
     public boolean InfoManquants() {
 boolean test = false;
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (this.Libl == null) {
             Scanner myObj = new Scanner(System.in);// Create a Scanner object
             System.out.println("Enter Libelle");
