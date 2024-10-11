@@ -1,128 +1,191 @@
-import tn.tuniprob.gestionmagasin.Produits;
+package Gestion;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+import Entite.Produit;
+import GestionEmploye.Caissier;
+import GestionEmploye.Employe;
+import GestionEmploye.Responsable;
+import GestionEmploye.Vendeur;
 
 public class Magasin {
-    int ID;
-    String Adreese;
-    int Capacite=0;
-    Produits[] EnsembleProduits= new  Produits[50];
-    private static int  Somme =0;
-    public Magasin(int ID,String Adreese)
-    {
-        this.ID=ID;
-        this.Adreese=Adreese;
-        //this.Capacite=Capacite;
+
+    private int id;
+    private String nom;
+    private String adresse;
+
+    private final int CAPACITE = 50;
+
+    private final int CAPACITEEMPLOYE = 20;
+
+    private Employe[] TabEmpl= new Employe[CAPACITEEMPLOYE];
+    private int NbEmploye;
+
+    private int comp;
+    private Produit[] tabprod = new Produit[CAPACITE];
+    private static int total;
+    public Magasin(int id, String ad,String nom) {
+        this.id = id;
+        adresse = ad;
+        this.nom = nom;
     }
 
-public static int GetSomme()
-{
-    return Somme;
-}
-
-    public void afficher() {
-        System.out.println("l id du Magasin est" + this.ID);
-        System.out.println("L'adresse'" + this.Adreese);
-        System.out.println("Capacite" + this.Capacite);
-    }
-public boolean ChercherProduits(Produits p)
-{
-    for(Produits pr : EnsembleProduits) {
-        if(pr!=null)
-        if(pr.Comparer(p))
-            return true;
-    }
-    return false;
-}
-
-    public void AjouterProduits(Produits p1){
-      if(Capacite <50) {
-          if (ChercherProduits(p1)) {
-              System.out.println("ce produit existe deja");
-          } else {
-              EnsembleProduits[Capacite] = p1;
-              Capacite++;
-              Somme++;
-          }
-      }
-          else
-          System.out.println("La capacite est au max");
-
+    public Employe[] getTabEmpl() {
+        return TabEmpl;
     }
 
-
-
-
-
-    public void AjouterProduits(){
-        boolean test= false;
-        String rep;
-        int i=0;
-
-        Scanner myObj = new Scanner(System.in);
-        do {
-            Produits p = new Produits();
-            System.out.println("Vous voulez ajouter un produit?");
-            rep=myObj.nextLine();
-            if(rep.equals("OUI"))
-            {
-                p.Remplir();
-                if(ChercherProduits(p)) {
-                    System.out.println("ce produit existe deja");
-                    test=true;
-                }
-                else {
-            EnsembleProduits[i]= p;
-                Capacite++;
-                    Somme++;
-                    i++;}
-                }
-            else
-                test=true;
-        }while ((!test || i==Capacite)&&Capacite<50);
+    public int getNbEmploye() {
+        return NbEmploye;
     }
-    public boolean SupprimerProduits(Produits p){
-        int i=0;
-        boolean test= false;
-        while(i<Capacite&& test==false)
-        {
 
-                if (this.EnsembleProduits[i]!=null&&EnsembleProduits[i].Comparer(p)) {
-                    for (int j = i; j < Capacite-1; j++) {
-                        EnsembleProduits[j] = EnsembleProduits[j + 1];
-                    }
-                    test = true;
-                   Capacite--;
-                   return true;
-                }
+    public void ajouterEmploye(Employe e) {
+        if (NbEmploye < CAPACITEEMPLOYE) {
 
-            i++;
+            TabEmpl[NbEmploye] = e;
+            NbEmploye++;
+        } else {
+
+            System.out.println("Magasin ne recrute plus");
+        }
+    }
+
+    public void ajouter(Produit p) {
+        if (comp < CAPACITE) {
+            if(chercherProduit(p)==false) {
+                tabprod[comp] = p;
+                comp++;
+                total++;
+            }else {
+                System.out.println("le produit existe déjà");
+            }
+        } else {
+
+            System.out.println("Magasin plein");
+        }
+    }
+
+
+    public static int getTotal(){
+        return total;
+    }
+    public void afficherMarquePro() {
+        for (int i = 0; i < comp; i++) {
+            System.out.println("Marque :" + tabprod[i].getMarque());
+        }
+
+    }
+
+    public String toString() {
+        String str = "L'ensemble des produits\n";
+
+        for (int i = 0; i < comp; i++) {
+            str += tabprod[i] + "\n";
+        }
+        for (int i = 0; i < NbEmploye; i++) {
+            str += TabEmpl[i].ToString() + "\n";
+        }
+        return "L'id :" + id + " l'adresse :" + adresse + "\n" + str ;
+    }
+
+    public boolean chercherProduit(Produit p){
+        for (int i=0;i<comp;i++)
+        { if(Produit.comparer(p,tabprod[i]))
+           // if(p.comparer(tabprod[i]))
+                return true;
         }
         return false;
     }
-    public void AfficherProduits(){
-       System.out.println("L'id est"+ID);
-        System.out.println("L'adresse est"+Adreese);
-        System.out.println("La capacite est"+Capacite);
-        System.out.println("La liste des produits");
-      for (Produits ensembleProduit : EnsembleProduits)
-      {if(ensembleProduit != null) {
-          System.out.println("Le prix de l'artice est" + ensembleProduit.getPrix());
-          System.out.println("Le nom de l'artice est" + ensembleProduit.getLibl());
-      }
+
+
+    public Magasin plusProduit(Magasin m)
+    {
+        if(this.comp<m.comp)
+            return m;
+        else if (this.comp>m.comp) {
+            return this;
         }
+        else return null;
     }
-    public int getListArticle() {
-            if(EnsembleProduits != null) {
-               return Capacite;
+
+    public static Magasin plusProduit(Magasin m1,Magasin m2)
+    {
+        if(m1.comp<m2.comp)
+            return m2;
+        else if (m1.comp>m2.comp) {
+            return m1;
+        }
+        else return null;
+    }
+
+
+    public int chercherProduitIndice(Produit p)
+    {
+     for (int i=0;i<comp;i++)
+
+     {
+         if(Produit.comparer(p,tabprod[i]))
+
+             return i;
+     }
+        return -1;
+    }
+    public void afficherNbEmployeeParType()
+    {
+        int VenNb=0;
+        int CNb=0;
+        int RNB=0;
+        for(int i=0;i<NbEmploye;i++)
+        {
+            if(TabEmpl[i].getClass().equals(Vendeur.class))
+            {
+                VenNb++;
             }
-            return 0;
+            if(TabEmpl[i].getClass().equals(Caissier.class))
+            {
+                CNb++;
+            }
+            if(TabEmpl[i].getClass().equals(Responsable.class))
+            {
+                RNB++;
+            }
+        }
+        System.out.println("Vendeur"+VenNb);
+        System.out.println("Caissier"+CNb);
+        System.out.println("Responsable"+RNB);
+
+    }
+    public float GetPrime()
+    {
+        float Somme=0;
+        for (int i=0;i<NbEmploye;i++)
+        {
+        }
+        return Somme;
     }
 
-    public Magasin CompareMG(Magasin MG) {
-       return MG.Capacite>Capacite? MG : this;
+    public float GetSalire()
+    {
+        float Somme=0;
+        for (int i=0;i<NbEmploye;i++)
+    {
+        Somme=Somme+TabEmpl[i].GetSalire();
+    }
+        return Somme;
+    }
+    public boolean supprimer(Produit p)
+    {
+        int indice=chercherProduitIndice(p);
+
+        if(indice!=-1)
+        {
+
+            for (int i=indice;i<=comp-1;i++)
+            {
+                tabprod[i]=tabprod[i+1];
+            }
+            tabprod[comp]=null;
+            comp--;
+            total--;
         }
 
+        return false;
+    }
 }
