@@ -15,39 +15,47 @@ public class Test {
 
         Produit p1=new Produit();
 
-        System.out.println("id :"+p1.getIdentifiant());
+       /* System.out.println("id :"+p1.getIdentifiant());
         System.out.println("marque :"+p1.getMarque());
         System.out.println("libelle :"+p1.getLibelle());
-        System.out.println("prix :"+p1.getPrix());
+        System.out.println("prix :"+p1.getPrix());*/
 
      Produit p2=new Produit(1024,"Delice","Lait");
-        System.out.println("id :"+p2.getIdentifiant());
+       /* System.out.println("id :"+p2.getIdentifiant());
         System.out.println("marque :"+p2.getMarque());
         System.out.println("libelle :"+p2.getLibelle());
         System.out.println("prix :"+p2.getPrix());
-Date date=new Date();
-        Produit p3=new Produit(11,"Sicam","Tomate",1.2f,date);
-        System.out.println("Entite.Produit 3");
+        Date date=new Date();*/
+
+        Produit p3=new Produit(11,"Sicam","Tomate",1.2f,null);
+        /*System.out.println("Entite.Produit 3");
         System.out.println("id :"+p3.getIdentifiant());
         System.out.println("marque :"+p3.getMarque());
         System.out.println("libelle :"+p3.getLibelle());
-        System.out.println("prix :"+p3.getPrix());
+        System.out.println("prix :"+p3.getPrix());*/
 
 
         p1.setPrix(0.7f);
         p1.setMarque("Vitalait");
         p1.afficher();
-        System.out.println("to String");
+        /*System.out.println("to String");
         System.out.println(p3.toString());
-        System.out.println(p3);
+        System.out.println(p3);*/
 
 
         Magasin m1=new Magasin(1,"Centre-Ville","Carrefour");
-        m1.ajouter(p2);
-        m1.ajouter(p1);
-        m1.ajouter(p3);
-
-        System.out.println("marques produit");
+        try {
+            m1.ajouter(p2);
+            m1.ajouter(p1);
+            m1.ajouter(p3);
+        }
+        catch (MagasinPleinException e) {
+            System.out.println(e.toString());
+        }
+        catch (PrixNegatifException e) {
+            System.out.println(e.toString());
+        }
+     /*   System.out.println("marques produit");
         m1.afficherMarquePro();
 
        // System.out.println(m1);
@@ -103,6 +111,6 @@ Magasin m2=new Magasin(2,"Menzah 6","Monoprix");
 //        m1.supprimer(p1);
 //
 //        System.out.println(m1);
-
+*/
     }
 }

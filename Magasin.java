@@ -5,6 +5,8 @@ import GestionEmploye.Caissier;
 import GestionEmploye.Employe;
 import GestionEmploye.Responsable;
 import GestionEmploye.Vendeur;
+import Test.MagasinPleinException;
+import Test.PrixNegatifException;
 
 public class Magasin {
 
@@ -12,7 +14,7 @@ public class Magasin {
     private String nom;
     private String adresse;
 
-    private final int CAPACITE = 50;
+    private final int CAPACITE = 2;
 
     private final int CAPACITEEMPLOYE = 20;
 
@@ -47,15 +49,18 @@ public class Magasin {
         }
     }
 
-    public void ajouter(Produit p) {
-        if (comp < CAPACITE) {
-            if(chercherProduit(p)==false) {
+    public void ajouter(Produit p) throws MagasinPleinException, PrixNegatifException {
+        if(comp>=CAPACITE)
+        {
+            throw new MagasinPleinException("Pas de place dans le magasin");
+        }
+     if(p.getPrix()<0) throw new PrixNegatifException("pas doit etre +");
+
+         if(chercherProduit(p)==false) {
                 tabprod[comp] = p;
                 comp++;
                 total++;
-            }else {
-                System.out.println("le produit existe déjà");
-            }
+
         } else {
 
             System.out.println("Magasin plein");
